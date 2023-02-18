@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  shutdown: graceful  # Default: immediate, enable gracefule shutdown
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
+
+spring:
+  h2:
+    console:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:coindesk
+    driver-class-name: org.h2.Driver 
+    username: sa 
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+httpclient:
+  ws:
+    coindesk:
+      url:
+        quote: https://api.coindesk.com/v1/bpi/currentprice.json
+    
