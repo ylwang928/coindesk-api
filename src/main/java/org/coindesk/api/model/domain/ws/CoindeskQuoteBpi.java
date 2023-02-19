@@ -1,11 +1,16 @@
 package org.coindesk.api.model.domain.ws;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class CoindeskQuoteBpi {
+	protected Map<String, CoindeskQuoteCurrency> currMap;
+	
+	/*
 	@JsonProperty("USD")
 	protected CoindeskQuoteCurrency usd;
 	
@@ -14,36 +19,26 @@ public class CoindeskQuoteBpi {
 	
 	@JsonProperty("EUR")
 	protected CoindeskQuoteCurrency eur;
+	*/
 	
 	public CoindeskQuoteBpi() {}
+	
+	@JsonCreator
+	public CoindeskQuoteBpi(Map<String, CoindeskQuoteCurrency> currMap) {
+		this.currMap = currMap;
+	}
 
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
-	public CoindeskQuoteCurrency getUsd() {
-		return usd;
+	public Map<String, CoindeskQuoteCurrency> getCurrMap() {
+		return currMap;
 	}
 
-	public void setUsd(CoindeskQuoteCurrency usd) {
-		this.usd = usd;
-	}
-
-	public CoindeskQuoteCurrency getGbp() {
-		return gbp;
-	}
-
-	public void setGbp(CoindeskQuoteCurrency gbp) {
-		this.gbp = gbp;
-	}
-
-	public CoindeskQuoteCurrency getEur() {
-		return eur;
-	}
-
-	public void setEur(CoindeskQuoteCurrency eur) {
-		this.eur = eur;
+	public void setCurrMap(Map<String, CoindeskQuoteCurrency> currMap) {
+		this.currMap = currMap;
 	}
 
 }

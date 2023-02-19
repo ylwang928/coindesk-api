@@ -32,20 +32,15 @@ public class CoindeskQuoteBusiness {
 	
 	public void updateQuote() {
 		CoindeskQuote quote = proxy.getQuote();
+		log.info("Quote of currency from coindesk: {}", quote);
 		String isoDate = quote.getTime().getUpdatedISO();
 		CoindeskQuoteBpi bpi = quote.getBpi();
 		
 		List<CoindeskCurrencyQuoteEntity> entities = new ArrayList<>();
-		entities.add(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getUsd()));
-		entities.add(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getGbp()));
-		entities.add(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getEur()));
-		quoteService.saveAll(entities);
-		
-		/*
-		quoteService.save(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getUsd()));
-		quoteService.save(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getGbp()));
-		quoteService.save(new CoindeskCurrencyQuoteEntity(isoDate, bpi.getEur()));
-		*/
+		bpi.getCurrMap().values().forEach(currency -> {
+			entities.add(new CoindeskCurrencyQuoteEntity(isoDate, currency));
+		});
+		quoteService.saveAll(entities);   // 一次存進 DB 較有效率。
 	}
 
 }

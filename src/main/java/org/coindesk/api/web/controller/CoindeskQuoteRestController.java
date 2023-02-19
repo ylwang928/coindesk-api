@@ -46,9 +46,9 @@ public class CoindeskQuoteRestController {
 		*/
 		
 		List<CoindeskQuoteCurrencyDisplay> currencies = new ArrayList<>();
-		currencies.add(new CoindeskQuoteCurrencyDisplay(bpi.getUsd(), isoDate));
-		currencies.add(new CoindeskQuoteCurrencyDisplay(bpi.getGbp(), isoDate));
-		currencies.add(new CoindeskQuoteCurrencyDisplay(bpi.getEur(), isoDate));
+		bpi.getCurrMap().values().forEach(currency -> {
+			currencies.add(new CoindeskQuoteCurrencyDisplay(currency, isoDate));
+		});
 		
 		return currencies;
 	}
